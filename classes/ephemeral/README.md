@@ -40,3 +40,7 @@ These are areas where rules are likely needed but haven't been proposed yet:
 - Anonymous survey or feedback processing
 - One-time AI writing assistance for private content
 - Whistleblower or confidential reporting tools
+
+## See Also
+
+- [Spec: Mentra Live Scene Describer](../bystander-respecting/specs/mentra-live-scene-describer.md) — a smart-glasses app verified against Ephemeral (wearer's data) and [Bystander-Respecting](../bystander-respecting/) (people it captures)
