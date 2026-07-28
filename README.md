@@ -47,6 +47,14 @@ The repo is organized around **privacy classes** — each one defines a privacy 
 | **[Trusted Custody](classes/trusted-custody/)** | Data held in trust — user-owned, purpose-bound, auto-expiring | Journaling app that stores your entries but they're yours |
 | **[Accountable Use](classes/accountable-use/)** | Broader use permitted — but every use is visible, consented, auditable | AI assistant that learns your preferences transparently |
 
+Those four are **base classes** — they describe how a product treats its *user's own* data. A separate axis of **cross-cutting classes** covers people a product affects who are *not* its users:
+
+| Class | What It Means | Example |
+|---|---|---|
+| **[Bystander-Respecting](classes/bystander-respecting/)** | Ambient sensing respects people who never opted in | Camera glasses that signal recording and blur non-consenting faces on-device |
+
+A product declares a base class **and** any cross-cutting class that applies — e.g. a self-hosted camera-glasses app can be both **Sovereign** and **Bystander-Respecting**. See the [classification overview](classes/overview.md) for the two-axis model.
+
 Each class contains:
 - **Rules** — specific, true/false requirements ([example](classes/sovereign/README.md#normative-rules))
 - **Specs** — products verified against a class's rules ([example](classes/sovereign/specs/sovereign-personal-ai-assistant.md))
@@ -61,6 +69,7 @@ classes/                          # Privacy classes and their contents
   ephemeral/                      # Process and forget
   trusted-custody/                # Held in trust, user-owned
   accountable-use/                # Broader use, full transparency
+  bystander-respecting/           # Cross-cutting: respects non-users captured by ambient sensing
     README.md                     # Class definition and rules
     specs/                        # Product verifications
     patterns/                     # Architectural blueprints
