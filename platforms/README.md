@@ -33,10 +33,17 @@ Every profile — and every spec that references one — carries a version heade
 **Device:** Mentra Live (board: K900)
 **SDK:** @mentra/sdk 2.1.29
 **Verified:** 2026-07-27
+**Re-verify by:** 2026-08-03
 **Sources:** see footnotes
 ```
 
 When a platform has an imminent architecture change (as MentraOS does with its v2→v3 migration), the profile documents **both** versions and flags what differs, rather than silently describing only one.
+
+**The `Re-verify by:` field is enforced, not decorative.** A scheduled check ([`.github/workflows/profile-staleness.yml`](../.github/workflows/profile-staleness.yml)) opens a tracking issue when a profile passes its date, so decay becomes visible instead of silent. Set it to the earliest known decay event (a scheduled platform change, an SDK major, a hardware revision) or a default review horizon — whichever is sooner. A profile with a known future change (e.g. MentraOS's 2026-08-03 v3 cutover) should re-verify *on or before* that date.
+
+## Correction Notes
+
+Profiles and specs are **citable documents**: someone may have linked to or relied on a claim before you changed it. So when you correct a material fact, **show the correction rather than silently editing it away** — leave a short note ("An earlier version stated X; that is wrong — Y, per [source]"). This is the same discipline the [specs](../classes/overview.md) apply to verdicts, and for a standards project it is a cheap, durable credibility signal: it demonstrates that claims are checked and revised in the open. Silent edits, by contrast, make a document look either infallible (it isn't) or untrustworthy (why did the claim change?).
 
 ## Sourcing Standard
 

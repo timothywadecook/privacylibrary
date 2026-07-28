@@ -6,6 +6,7 @@
 **Device / board:** Mentra Live (board designation: **K900**, running a custom Android 11 / API 30 build) [S3]
 **Chipset:** MediaTek MTK8766 (MT8766) [S1][S4]
 **Verified:** 2026-07-28 (hardware/capture facts re-checked against the MIT-licensed `asg_client` source [S7][S8][S9])
+**Re-verify by:** 2026-10-26 (hardware facts are stable; re-check after any device revision or major `asg_client` change)
 **Availability:** Batch 1 shipped 2026-02-15 at $299 (1,000 units); list $349 [S1][S2]
 
 > **Naming note:** In MentraOS docs, **"K900" is the device/board designation** for Mentra Live (running a custom Android build), **not** the chipset. The chipset is the **MediaTek MTK8766**. An unofficial teardown reports the board string `k61v1_64_bsp` (a MediaTek BSP name); whether that maps to the MTK8766 die is unconfirmed [S4]. Do not describe "K900" as a chipset.

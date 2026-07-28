@@ -7,6 +7,7 @@
 **SDK:** `@mentra/sdk` 2.1.29 (TypeScript/JavaScript)
 **License:** MIT (open source)
 **Verified:** 2026-07-28 (permission enum and on-glasses capture/storage re-checked against MIT source [S10] and the [Mentra Live profile](mentra-live.md))
+**Re-verify by:** 2026-08-03 (the v2→v3 architecture cutover — the Cloud SDK data flow described here changes on this date)
 **Devices:** [Mentra Live](mentra-live.md)
 
 > ⚠️ **Architecture in transition.** MentraOS is migrating from a **cloud** app model (v2.x) to **phone-local "miniapps"** (v3.0), with the Cloud SDK scheduled to stop functioning on **2026-08-03** [S6]. The data flow — and therefore the privacy posture — differs materially between versions. This profile documents **both** and labels which is which. Pin your spec to the version you verified.
