@@ -30,7 +30,7 @@ A complete answer is "we're *Ephemeral + Bystander-Respecting*," not just one or
 
 ## Design Principles
 
-Each principle below names the rules it serves, so you can trace a design choice to a verifiable claim.
+Each principle below names the rules it serves, so you can trace a design choice to a verifiable claim. A couple of principles are marked *not yet a rule* — they're sound guidance the library hasn't turned into a verifiable rule yet, and each is a standing invitation to [propose one](../CONTRIBUTING.md#propose-a-rule). Don't cite those in a spec.
 
 ### 1. Capture on intent, not ambiently — [BR-2]
 
@@ -42,18 +42,20 @@ Capture the least that does the job, and discard raw buffers the moment the func
 
 ### 3. Signal capture to bystanders — and know your hardware — [BR-1]
 
-Bystanders deserve to know when they're being recorded. The strength of this claim depends on hardware you must actually verify:
+Bystanders deserve to know when they're being recorded — and [BR-1](../classes/bystander-respecting/#normative-rules) demands an indicator that *cannot be disabled in software*. That bar is higher than "has a light," and real hardware shows why:
 
-- **Mentra Live** has a dedicated white "privacy light" for the camera — but whether it can be disabled in software (the decisive condition for [BR-1](../classes/bystander-respecting/#normative-rules)) is [an open question](../platforms/mentraos/mentra-live.md#privacy-relevant-capabilities) you should confirm before claiming it.
+- **Mentra Live** ships a white capture "privacy light," and the stock client's policy is to light it on every photo/video/stream — a genuinely good default. But reading the open-source client shows the LED is [software-driven and fails open to a no-op](../platforms/mentraos/mentra-live.md#the-capture-indicator-is-software-driven--br-1-is-a-fail): it can be turned off in code, and a modified build can capture with it dark. That's a concrete **BR-1 Fail** — a good default is not a guarantee.
 - **OpenXR defines no capture indicator at all** — [it's left entirely to the runtime/OS/hardware](../platforms/openxr/README.md#what-openxr-does-not-provide). Check what your target runtime actually shows.
 
-Don't assume the indicator exists or is tamper-proof. Verify it.
+The lesson: a software-controlled indicator is weaker than a hardware interlock. Read the source, don't trust the marketing — and don't claim BR-1 without a light the software can't turn off.
 
-### 4. Keep sensitive processing close — [E-5], data locality
+### 4. Keep sensitive processing close — *(not yet a rule — see note)*
 
 Prefer on-device (or on-phone) inference over cloud round-trips. Where data is processed determines who can see it. This is why MentraOS's [v3.0 phone-local "miniapp" model](../platforms/mentraos/README.md#where-app-code-runs) is materially better for privacy than the v2.x cloud model — and why you should **pin your design to a platform version**, because that architecture is changing (Cloud SDK sunsets 2026-08-03).
 
-> **Where is "on-device"?** On Mentra Live the glasses have [no AI compute](../platforms/mentraos/mentra-live.md#where-redaction-can-happen) — the earliest processing point is the *phone*. "On-device" for that platform means "on the phone, before data leaves it," not "on the glasses."
+> **No rule backs this yet.** Data locality is the basis of the v2-vs-v3 argument, but the library has no locality rule — E-5 is about *retained embeddings*, not *where inference runs*, so don't cite it here. This is a genuine [gap worth a rule proposal](../CONTRIBUTING.md#propose-a-rule); until one exists, treat this principle as guidance, not a verifiable claim.
+
+> **Careful what "on-device" means.** Mentra Live glasses run [no AI *inference*](../platforms/mentraos/mentra-live.md#on-glasses-capture-storage-and-redaction), so redaction happens on the phone — **but the glasses still retain the raw capture** on-device and serve it over the LAN until deleted. "On-device" is only ephemeral once you've cleared the glasses-side copy; it is not free.
 
 ### 5. Don't identify people — [BR-4]
 
