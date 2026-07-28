@@ -6,7 +6,7 @@
 **Platform-Version:** 2.12 (stable, 2026-05-29) · 3.0 (pre-release, 2026-07-26)
 **SDK:** `@mentra/sdk` 2.1.29 (TypeScript/JavaScript)
 **License:** MIT (open source)
-**Verified:** 2026-07-27
+**Verified:** 2026-07-28 (permission enum and on-glasses capture/storage re-checked against MIT source [S10] and the [Mentra Live profile](mentra-live.md))
 **Devices:** [Mentra Live](mentra-live.md)
 
 > ⚠️ **Architecture in transition.** MentraOS is migrating from a **cloud** app model (v2.x) to **phone-local "miniapps"** (v3.0), with the Cloud SDK scheduled to stop functioning on **2026-08-03** [S6]. The data flow — and therefore the privacy posture — differs materially between versions. This profile documents **both** and labels which is which. Pin your spec to the version you verified.
@@ -44,12 +44,14 @@ Glasses ──BLE──▶ Phone app ──▶ Local miniapp (on the phone)
    └──────── responses flow back ───────┘
 ```
 
-- The **phone** now handles app execution, lifecycle, permissions, storage, and networking; the **glasses** are I/O and sensors only [S6].
+- The **phone** now handles app execution, lifecycle, permissions, storage, and networking [S6]; the **glasses** handle capture, sensors, display/audio I/O — but note they are **not** merely a dumb sensor (see below).
 - A miniapp **may still connect to a developer's own backend** if it chooses — but it is no longer forced through a cloud relay [S6]. This makes stronger base-class postures (e.g. Ephemeral, or data-minimizing designs) materially easier to achieve than under v2.x.
 
-### On-glasses compute
+### On-glasses compute and storage
 
-There is **no evidence of on-glasses AI inference** on current MentraOS devices; the glasses are I/O + sensors, and AI/processing runs on the phone (v3) or cloud (v2) to conserve the glasses' small battery [S6]. **Implication for [Bystander-Respecting](../../classes/bystander-respecting/):** on-device redaction of bystander faces/voices (rule BR-5) cannot happen *on the glasses* — the earliest point redaction can occur is the phone. "On-device" for a MentraOS app should be read as "on the phone, before data leaves the phone."
+The defensible narrow claim is that there is **no on-glasses AI *inference*** on current MentraOS devices; AI/processing runs on the phone (v3) or cloud (v2) to conserve the glasses' small battery [S6]. **But the glasses are not "I/O only."** The `asg_client` Android app on the glasses **captures, stores, and serves media on-device**: photos/videos are written to on-glasses storage and exposed over a **LAN-scoped HTTP server on port 8089** (enumerate / download / delete), and the glasses support buffer recording and RTMP streaming directly [see [Mentra Live](mentra-live.md#on-glasses-capture-storage-and-redaction)].
+
+**Implication for [Bystander-Respecting](../../classes/bystander-respecting/):** redaction (rule BR-5) still cannot be *computed* on the glasses (no inference), so it happens on the phone (v3) or cloud (v2). **But** a captured bystander image is retained on the glasses and reachable over the local network *before* it reaches the phone — so "on-device means on the phone" is only true once the app has **explicitly cleared the glasses-side copy**. Do not treat a Mentra capture as ephemeral by default.
 
 ## SDK Surface (v2.x Cloud SDK)
 
@@ -70,14 +72,14 @@ An app declares permissions in the **Developer Console** (not a checked-in manif
 { "type": "MICROPHONE", "description": "To listen to your voice commands" }
 ```
 
-- **Seven permission types:** `MICROPHONE`, `LOCATION`, `BACKGROUND_LOCATION`, `CAMERA`, `CALENDAR`, `READ_NOTIFICATIONS`, `POST_NOTIFICATIONS` [S7].
+- **Nine permission types** in the SDK's `PermissionType` enum [S10]: `MICROPHONE`, `LOCATION`, `BACKGROUND_LOCATION`, `CALENDAR`, `CAMERA`, `READ_NOTIFICATIONS`, `POST_NOTIFICATIONS`, a legacy `NOTIFICATIONS`, and — notably — a wildcard **`ALL`**. (Mentra's app-dev docs foreground the first seven; the enum in `cloud/packages/sdk/src/types/models.ts` is the authoritative list [S10].)
 - **Grant flow:** the user reviews and approves declared permissions **at install time**; a denied permission behaves like an undeclared one and must be re-enabled in settings [S7].
 - **Enforcement granularity:** permissions gate specific API surfaces — e.g. `MICROPHONE` governs `onTranscription()`, `onAudioChunk()`, and `onVAD()` [S7].
 
 **Privacy-relevant limits of this model** (candidate gaps for our rules):
-- Consent is **install-time and coarse** — permission per *type*, not per *purpose* or per *session*. There is no documented per-session capture toggle at the permission layer.
+- Consent is **install-time and coarse** — permission per *type*, not per *purpose* or per *session*. There is no documented per-session capture toggle at the permission layer. The existence of a wildcard **`ALL`** permission [S10] is the strongest evidence of this coarseness: an app can request everything in one grant.
 - Permissions concern the **wearer's** grant to the app. **Nothing in the permission model represents the bystander** — the person captured by `CAMERA`/`MICROPHONE` has no standing in it. This is precisely the gap the [Bystander-Respecting](../../classes/bystander-respecting/) class exists to address.
-- Whether the v3.0 migration changes the permission model (still seven types? still Developer Console?) was **not documented** at verification time.
+- Whether the v3.0 migration changes the permission model (still the same enum? still Developer Console?) was **not documented** at verification time.
 
 ## Versioning
 
@@ -91,7 +93,8 @@ Because the platform is changing quickly, any spec referencing MentraOS should r
 
 - **v3.0 Miniapp SDK surface** and whether it changes the permission model — not documented at verification time.
 - **npm publish date** of `@mentra/sdk` 2.1.29 — registry returned an inconsistent date; the version number is reliable, the date is not.
-- **Whether the camera privacy LED can be disabled in software** — critical for [BR-1](../../classes/bystander-respecting/); see the [Mentra Live device profile](mentra-live.md) open questions.
+
+*(Resolved since the previous version: the camera capture LED **is** software-controllable — see the [Mentra Live device profile](mentra-live.md#the-capture-indicator-is-software-driven--br-1-is-a-fail) — so BR-1 is a Fail, not an open question.)*
 
 ## Sources
 
@@ -104,3 +107,4 @@ Because the platform is changing quickly, any spec referencing MentraOS should r
 - **[S7]** Permissions doc (7 types, Developer Console, install-time grant) — https://docs.mentraglass.com/app-devs/core-concepts/permissions.md
 - **[S8]** GitHub Releases (versioning; v2.12, v3.0) — https://github.com/Mentra-Community/MentraOS/releases
 - **[S9]** npm `@mentra/sdk` — https://www.npmjs.com/package/@mentra/sdk
+- **[S10]** `PermissionType` enum (MIT source), incl. legacy `NOTIFICATIONS` and wildcard `ALL` — `cloud/packages/sdk/src/types/models.ts` in https://github.com/Mentra-Community/MentraOS

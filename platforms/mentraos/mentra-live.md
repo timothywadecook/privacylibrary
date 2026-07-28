@@ -5,7 +5,7 @@
 **Platform:** MentraOS (formerly AugmentOS)
 **Device / board:** Mentra Live (board designation: **K900**, running a custom Android 11 / API 30 build) [S3]
 **Chipset:** MediaTek MTK8766 (MT8766) [S1][S4]
-**Verified:** 2026-07-27
+**Verified:** 2026-07-28 (hardware/capture facts re-checked against the MIT-licensed `asg_client` source [S7][S8][S9])
 **Availability:** Batch 1 shipped 2026-02-15 at $299 (1,000 units); list $349 [S1][S2]
 
 > **Naming note:** In MentraOS docs, **"K900" is the device/board designation** for Mentra Live (running a custom Android build), **not** the chipset. The chipset is the **MediaTek MTK8766**. An unofficial teardown reports the board string `k61v1_64_bsp` (a MediaTek BSP name); whether that maps to the MTK8766 die is unconfirmed [S4]. Do not describe "K900" as a chipset.
@@ -22,9 +22,10 @@
 | Battery | 260 mAh (glasses) + 2,200 mAh (charging case); 12+ hrs mixed use | [S2] |
 | Weight | 43 g | [S1][S2] |
 | Connectivity | Wi-Fi 802.11 b/g/n; Bluetooth 5.0 LE | [S3] |
-| Debug | ADB over Wi-Fi only (no USB ADB) | [S3] |
+| Debug | ADB over USB (magnetic "Infinity Cable" USB-C clip-on) **and** over Wi-Fi | [S9] |
 | Status LEDs | Blue blinking = BT advertising · Blue solid = BT connected · Red blinking = low battery · Green = charging | [S3] |
-| **Camera privacy light** | **Dedicated white "privacy light" (alongside RGB status LEDs) signals camera operation** | [S5][S6] |
+| **Camera capture LEDs** | A local MTK "privacy light" **plus** a white RGB ring; both are **software-driven** (see below), and the stock client lights them on photo/video/stream capture | [S5][S6][S7] |
+| On-glasses capture storage | Captured photos/videos are written to on-glasses storage and served over a local HTTP server on **port 8089** (LAN-scoped) | [S8] |
 
 ## Privacy-Relevant Capabilities
 
@@ -32,20 +33,27 @@
 
 Mentra Live has a **12MP forward-facing camera with a 119° field of view** and **three microphones** [S1][S2]. Both capture the **wearer's surroundings**, meaning **any person in front of or near the wearer is a potential [bystander](../../classes/bystander-respecting/#who-is-a-bystander)** whose image or voice can be captured. This is the defining reason the Bystander-Respecting class applies to Mentra Live apps that use the camera or microphone.
 
-### The camera privacy light — and its open question
+### The capture indicator is software-driven — BR-1 is a Fail
 
-Mentra Live ships a **dedicated white LED "privacy light"** that signals when the camera is operating, distinct from the RGB status LEDs [S5][S6]. This is a genuine, hardware-level bystander affordance and is the platform's primary documented privacy feature for the camera.
+Mentra Live signals camera use with two indicators: a **local MTK "privacy light"** and a **white RGB ring**, driven together by `MediaCaptureService` so the wearer/bystander gets a consistent signal (photo → white flash; video → solid; buffer recording → blink) [S7]. To Mentra's credit, **the stock client policy is to always light the local capture LED for photo, video, and stream capture** [S7]. That is a genuinely good *default*.
 
-It maps directly onto rule **[BR-1](../../classes/bystander-respecting/#normative-rules)** (*active capture is signaled by a clear, perceptible indicator that cannot be disabled or concealed in software*). **But BR-1's key condition — that the indicator cannot be disabled in software — was not confirmed** in Mentra's documentation at verification time. Whether the privacy light is hardwired to the camera power rail (BR-1 Pass) or software-controlled and thus potentially suppressible by an app or OS build (BR-1 at risk) is an **open verification item**. A spec asserting BR-1 for Mentra Live must resolve this, ideally by testing the device or reading the ASG-client / firmware source.
+**But rule [BR-1](../../classes/bystander-respecting/#normative-rules) requires an indicator that *cannot be disabled or concealed in software* — and this one can.** Reading the MIT-licensed `asg_client` source that this profile already cites resolves the question that an earlier version of this profile left open:
 
-### Where redaction can happen
+- The LED is controlled entirely in software: `K900LedController.turnOff()`, `setBrightness(int percent)` (0 = off), and `setLedStateInternal()` → `DevApi.setLedOn(boolean)` over JNI to `libxydev.so` [S7].
+- "Always enabled for capture" is an **application policy in `MediaCaptureService`, not a hardware interlock** [S7].
+- It **fails open**: if `libxydev.so` fails to load, `K900LedController` "becomes a no-op — the local MTK LED simply doesn't light. App keeps running" [S7]. The RGB ring similarly no-ops if the MTK never claims LED authority from the BES co-processor [S7].
+- The client is replaceable (`dev-setup.sh` swaps the factory system app) [S9], so a modified build can capture with the indicator dark.
 
-Because the glasses perform **no on-device AI inference** ([see platform profile](README.md#on-glasses-compute)), bystander redaction (rule **BR-5**) cannot occur on the glasses themselves. The earliest point at which faces/voices can be redacted is:
+**Verdict: BR-1 is a Fail for Mentra Live** — not because Mentra is careless (the stock behavior is good), but because the indicator is a software policy that can be turned off, misconfigured, or fails silently, which is exactly the condition BR-1 exists to exclude. A hardware interlock tying the LED to the camera power rail would move this to Pass.
 
-- the **phone** (v3.0 miniapp model — redact before anything leaves the phone), or
-- the **cloud app** (v2.x model — redaction happens only *after* frames have already transited Mentra's cloud and the developer's cloud, which weakens the "on-device" guarantee).
+### On-glasses capture, storage, and redaction
 
-This makes the **v3.0 phone-local model materially better** for meeting BR-5, and is a concrete reason a privacy-conscious Mentra camera app should target v3.
+An earlier version of this profile described the glasses as "I/O and sensors only." That is **wrong** and it matters for BR-3 and BR-5. The glasses run a full Android app that:
+
+- **persists captured photos and video to on-glasses storage** and serves them over an **embedded HTTP server on port 8089** — with endpoints to take pictures, enumerate the gallery, download, and bulk-delete files [S8]. The server is **LAN-scoped** ("listens on the local WiFi address only… not exposed beyond the network the glasses are joined to") [S8] — but that still means a captured bystander image is, until deleted, at rest on the glasses and reachable by anything on the same Wi-Fi (e.g. a café network).
+- supports a **rolling "buffer recording" mode** [S7] and **RTMP/SRT/WHIP live streaming directly from the glasses** [S10].
+
+The defensible narrow claim is that the glasses perform **no on-device AI *inference*** — so bystander *redaction* (rule **BR-5**) can't be computed on the glasses and must happen on the phone (v3.0) or cloud (v2.x). But "nothing is retained on the glasses" is false: a capture lands in on-glasses storage and on the 8089 gallery first, so an app targeting BR-3/BR-5 must **explicitly delete the on-glasses copy** (via the delete-files endpoint [S8]) rather than assume the frame lived only in memory. The v3.0 phone-local model is still better for redaction, but only *after* the glasses-side copy is cleared.
 
 ## Capabilities an App Should Check
 
@@ -53,10 +61,11 @@ Per the SDK, camera apps should gate on capabilities before assuming hardware �
 
 ## Unverified / Not Found
 
-- **Whether the camera privacy light can be disabled in software** — not documented; decisive for [BR-1](../../classes/bystander-respecting/). **Needs device/firmware verification.**
-- **Mandatory recording tone or software capture-gating policy** beyond the privacy LED — not found in official docs.
 - **Native camera megapixels** — sources conflict between "12MP" and a 3264×2448 (~8MP) still resolution.
 - **`k61v1_64_bsp` ↔ MTK8766 correspondence** — from an unofficial teardown, unconfirmed.
+- **Whether the SDK `requestPhoto()` path auto-deletes the on-glasses copy** — the 8089 server persists captures and exposes a delete endpoint [S8], but whether a single SDK photo capture is cleaned up automatically or must be deleted by the app is not confirmed; a BR-3/BR-5 spec should verify this on-device.
+
+*(Resolved since the previous version: the capture LED **is** software-controllable — see the BR-1 section above — and the glasses **do** retain captures on-device; both were previously listed here as unverified.)*
 
 ## Sources
 
@@ -66,3 +75,7 @@ Per the SDK, camera apps should gate on capabilities before assuming hardware �
 - **[S4]** Hardware teardown gist (`k61v1_64_bsp`) — https://gist.github.com/madebyollin/b24f76ed8e54dc22975e4869a0fdaf5d
 - **[S5]** Camera glasses doc (`requestPhoto`, Bluetooth SDK, privacy light) — https://docs.mentraglass.com/app-devs/core-concepts/hardware-capabilities/camera-glasses.md
 - **[S6]** Mentra Live hardware doc (RGB + white privacy light) — https://docs.mentraglass.com/mentra-live/hardware.md
+- **[S7]** `asg_client` LED control (MIT source): `K900LedController.java` (`turnOff`, `setBrightness`, `setLedStateInternal`→`DevApi.setLedOn`) and `docs/features/led-control.md` (software-driven; "always enabled for capture" is app policy; fails open to no-op) — https://github.com/Mentra-Community/MentraOS (`asg_client/`)
+- **[S8]** `asg_client` camera web server (MIT source): `docs/features/camera-web-server.md` (port 8089; enumerate/download/delete captured media; LAN-scoped) — https://github.com/Mentra-Community/MentraOS (`asg_client/`)
+- **[S9]** `asg_client/AGENTS.md` (ADB over USB via "Infinity Cable"; `dev-setup.sh` replaces the factory system app) — https://github.com/Mentra-Community/MentraOS (`asg_client/`)
+- **[S10]** `asg_client` live streaming (MIT source): `docs/features/rtmp-streaming.md` (RTMP/SRT/WHIP from the glasses) — https://github.com/Mentra-Community/MentraOS (`asg_client/`)
