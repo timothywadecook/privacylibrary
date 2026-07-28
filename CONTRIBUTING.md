@@ -14,7 +14,7 @@ You understand the human side — what privacy means to people, not just systems
 - **Write use case descriptions** that ground the classes in real human contexts
 - **Propose new classes** for contexts we haven't imagined
 
-**Start here:** Read the [Vision](VISION.md), then look at the example use cases in each class. Are there important contexts missing? File an issue.
+**Start here:** Look at the example use cases in each class. Are there important contexts missing? File an issue.
 
 ### Technical Writers & Documentarians
 You make complex things understandable. That matters enormously here.
