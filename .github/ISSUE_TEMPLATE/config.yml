@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Write a spec or contribute a pattern
+    url: https://github.com/timothywadecook/privacylibrary/blob/main/CONTRIBUTING.md
+    about: Specs and patterns are contributed as pull requests, not issues — see CONTRIBUTING.
+  - name: Question
+    url: https://github.com/timothywadecook/privacylibrary/issues/new
+    about: Open a blank issue and tag it "question". No question is too basic.

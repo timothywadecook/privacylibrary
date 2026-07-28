@@ -1,0 +1,81 @@
+name: Profile staleness
+
+# Platform profiles decay. Each carries a `**Re-verify by:** YYYY-MM-DD` field
+# (see platforms/README.md). This job makes that field enforceable: when a
+# profile passes its date, it opens/updates a tracking issue so the decay is
+# visible instead of silent. Runs daily, and can be triggered manually.
+
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const today = new Date().toISOString().slice(0, 10); // UTC YYYY-MM-DD
+
+            function walk(dir) {
+              let out = [];
+              for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+                const p = path.join(dir, e.name);
+                if (e.isDirectory()) out = out.concat(walk(p));
+                else if (e.name.endsWith('.md')) out.push(p);
+              }
+              return out;
+            }
+
+            const files = fs.existsSync('platforms') ? walk('platforms') : [];
+            const stale = [];
+            for (const f of files) {
+              const m = fs.readFileSync(f, 'utf8').match(/\*\*Re-verify by:\*\*\s*(\d{4}-\d{2}-\d{2})/);
+              if (m && m[1] <= today) stale.push({ file: f, due: m[1] });
+            }
+
+            const TITLE = 'Profile re-verification due';
+            const MARKER = '<!-- profile-staleness-bot -->';
+            const { owner, repo } = context.repo;
+
+            const { data: open } = await github.rest.issues.listForRepo({
+              owner, repo, state: 'open', per_page: 100,
+            });
+            const existing = open.find(i => i.title === TITLE && (i.body || '').includes(MARKER));
+
+            if (!stale.length) {
+              core.info('No profiles past their Re-verify by date.');
+              if (existing) {
+                await github.rest.issues.update({ owner, repo, issue_number: existing.number, state: 'closed' });
+                core.info(`Closed stale-tracking issue #${existing.number} (nothing overdue).`);
+              }
+              return;
+            }
+
+            const list = stale.map(s => `- \`${s.file}\` — due ${s.due}`).join('\n');
+            const body = [
+              MARKER,
+              'The following platform profiles have passed their **Re-verify by:** date and should be re-checked against their sources',
+              `(see [platforms/README.md](https://github.com/${owner}/${repo}/blob/main/platforms/README.md#version-header-convention)):`,
+              '',
+              list,
+              '',
+              '_Maintained automatically. It updates as dates pass, and closes itself once no profile is overdue._',
+            ].join('\n');
+
+            if (existing) {
+              await github.rest.issues.update({ owner, repo, issue_number: existing.number, body });
+              core.info(`Updated #${existing.number} (${stale.length} overdue).`);
+            } else {
+              const { data: created } = await github.rest.issues.create({ owner, repo, title: TITLE, body });
+              core.info(`Created #${created.number} (${stale.length} overdue).`);
+            }

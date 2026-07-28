@@ -1,6 +1,6 @@
 # PrivacyLibrary
 
-A free, open repository of privacy and security specs, rules, and architectural patterns — built by and for the community.
+A free, open repository of privacy specs, rules, and architectural patterns — built by and for the community.
 
 So product developers (and their agents) can have a shared resource for privacy-compliant architecture for everyone's benefit.
 
@@ -78,6 +78,13 @@ guides/                           # Practical guides
   roadmap-to-a-class.md           # Plan a migration
 ```
 
+## Governance
+
+How rules move from Proposed to Accepted, how the standard is versioned, and how identifiers stay stable are described in [GOVERNANCE.md](GOVERNANCE.md). Changes are tracked in the [CHANGELOG](CHANGELOG.md). Participation is under our [Code of Conduct](CODE_OF_CONDUCT.md).
+
 ## License
 
-[MIT](LICENSE)
+Dual-licensed by content type:
+
+- **Normative text & documentation** (the class definitions, rules, specs, patterns, guides, profiles) — [CC BY-SA 4.0](LICENSE-CONTENT). Reuse and adapt freely with attribution and share-alike; this keeps the standard and its derivatives open.
+- **Code & data** (JSON exports, GitHub Actions, scripts) — [MIT](LICENSE).

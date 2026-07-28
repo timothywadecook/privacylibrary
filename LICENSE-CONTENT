@@ -1,0 +1,42 @@
+PrivacyLibrary — License for Normative Text and Documentation
+=============================================================
+
+SPDX-License-Identifier: CC-BY-SA-4.0
+
+The normative text and documentation in this repository — the class
+definitions, normative rules, specs, patterns, guides, platform profiles,
+and other prose content (broadly, the Markdown documents) — are licensed
+under the Creative Commons Attribution-ShareAlike 4.0 International License
+(CC BY-SA 4.0).
+
+You are free to share and adapt this material for any purpose, including
+commercially, provided you give appropriate credit and license your
+derivative works under the same terms (ShareAlike). CC BY-SA is used, in
+preference to the MIT license that covers this project's code, because it
+is the appropriate license for a shared standard: it keeps the standard
+and its derivatives open.
+
+  - Human-readable summary:  https://creativecommons.org/licenses/by-sa/4.0/
+  - Full legal code:         https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
+Attribution
+-----------
+
+When reusing this material, a reasonable attribution is:
+
+  "Based on PrivacyLibrary (https://github.com/timothywadecook/privacylibrary),
+   licensed under CC BY-SA 4.0."
+
+Scope: code vs. content
+-----------------------
+
+  - Normative text & documentation (Markdown docs)  ->  CC BY-SA 4.0  (this file)
+  - Code, configuration, and data files
+    (e.g. JSON exports, GitHub Actions, scripts)    ->  MIT           (see LICENSE)
+
+Where a file's type is ambiguous, the more specific of the two licenses for
+that kind of file governs; when still unclear, the content license
+(CC BY-SA 4.0) applies to prose and MIT applies to machine-consumed files.
+
+Contributions to the normative text and documentation are accepted under
+CC BY-SA 4.0; see CONTRIBUTING.md.
