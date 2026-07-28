@@ -12,6 +12,15 @@ Platforms also **change**. An OS release can move computation from the cloud to 
 
 A profile is **descriptive, not evaluative.** It states what the platform does; it does not judge it against a class. That judgment happens in a [spec](../classes/overview.md), which references a profile for its facts. Keeping the two separate means a profile can be reused across many specs, and a spec's verdict can be re-checked against the profile's cited evidence.
 
+## Two Kinds of Profile
+
+Not everything a product runs on is a concrete operating system. This system recognizes two profile archetypes:
+
+- **Platform / device profiles** describe a concrete stack that *owns hardware and data* — an OS, its SDK, and the devices it runs on. [MentraOS](mentraos/) + [Mentra Live](mentraos/mentra-live.md) is one: it decides where data flows, what permissions exist, and what indicators fire.
+- **API-standard profiles** describe a **cross-vendor API or specification** that *surfaces* capabilities but does **not** own the hardware or govern data itself — the runtime/OS underneath does. [OpenXR](openxr/) is one: it defines which sensitive surfaces exist (eye, face, body, scene, passthrough) and how a runtime must *deny* access, but it defers consent, capture indicators, and data governance to the runtime/OS (Meta Horizon OS, Android XR, etc.).
+
+The distinction matters for verification. When a product targets an API standard, its full privacy posture depends on **both** the standard *and* the specific runtime/OS it ships against — so a spec typically references an API-standard profile for "what data is exposed" **and** a platform/device profile for "how that data is actually governed." An API-standard profile makes this split explicit and points to where the missing governance lives.
+
 ## Structure
 
 ```
@@ -55,9 +64,10 @@ Because platform facts drive Pass/Fail verdicts, profiles hold themselves to the
 
 ## Available Profiles
 
-| Platform | Devices | Focus |
+| Profile | Kind | Focus |
 |---|---|---|
-| [MentraOS](mentraos/) | [Mentra Live](mentraos/mentra-live.md) | Open-source smart-glasses OS; camera/mic ambient capture; relevant to [Bystander-Respecting](../classes/bystander-respecting/) |
+| [MentraOS](mentraos/) → [Mentra Live](mentraos/mentra-live.md) | Platform / device | Open-source smart-glasses OS; camera/mic ambient capture; relevant to [Bystander-Respecting](../classes/bystander-respecting/) |
+| [OpenXR](openxr/) | API standard | Cross-vendor XR API; surfaces eye/face/body/scene/passthrough data; governance deferred to the runtime/OS |
 
 ## Contributing a Profile
 

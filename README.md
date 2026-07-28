@@ -18,7 +18,7 @@ So product developers (and their agents) can have a shared resource for privacy-
 
 **Plan improvements:** Use the [Roadmap to a Class](guides/roadmap-to-a-class.md) guide to plan your path from where you are to where you want to be.
 
-**Build something new:** Pick a class, use its rules as requirements, and check its patterns for ready-to-use architecture.
+**Build something new:** Pick a class, use its rules as requirements, and check its patterns for ready-to-use architecture. Building for smart glasses, XR, or wearables? Start with the [Building Privacy-Conscious Smart-Glasses Apps](guides/building-privacy-conscious-smart-glasses-apps.md) guide.
 
 ## How To Contribute
 
@@ -76,6 +76,10 @@ classes/                          # Privacy classes and their contents
 guides/                           # Practical guides
   classify-your-product.md        # Assess your current posture
   roadmap-to-a-class.md           # Plan a migration
+  building-privacy-conscious-smart-glasses-apps.md   # Smart-glasses / XR / wearables
+platforms/                        # Version-pinned platform & API-standard profiles
+  mentraos/                       # MentraOS + Mentra Live (camera glasses)
+  openxr/                         # OpenXR cross-vendor XR API standard
 ```
 
 ## License

@@ -66,3 +66,5 @@ A product declares **both** a base class and, if it senses beyond its user, this
 - [Classification overview](../overview.md) — how cross-cutting classes fit the two-axis model
 - [Spec: Mentra Live Scene Describer](specs/mentra-live-scene-describer.md) — a real smart-glasses app verified against Ephemeral + Bystander-Respecting
 - [Platform profile: MentraOS](../../platforms/mentraos/README.md) and [device profile: Mentra Live](../../platforms/mentraos/mentra-live.md) — the grounded facts these rules are tested against
+- [API-standard profile: OpenXR](../../platforms/openxr/README.md) — where XR runtimes surface bystander-capturing sensors (passthrough, room mesh, depth)
+- [Guide: Building Privacy-Conscious Smart-Glasses Apps](../../guides/building-privacy-conscious-smart-glasses-apps.md) — practical design principles mapped to these rules
