@@ -7,6 +7,7 @@
 **Core version:** 1.1 (first released 2024-04-15); latest registry patch **1.1.61 (2026-07-06)** [S1][S2]
 **Extension versioning:** each extension is versioned independently and enabled by name at instance creation [S3]
 **Verified:** 2026-07-28
+**Re-verify by:** 2026-10-26 (extensions are added/revised continuously; re-check the surface catalog against the latest registry)
 
 ## What OpenXR Is (and Why It's Profiled Differently)
 
