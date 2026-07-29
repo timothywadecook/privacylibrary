@@ -54,9 +54,9 @@ Start with the class that feels closest to your current state.
 
 ### Step 4: Identify Your Current Classification
 
-Your current classification is the *most permissive* class you fully satisfy. If you pass all Trusted Custody rules but fail two Ephemeral rules, you're Trusted Custody (not Ephemeral).
+The classes are **independent postures, not a ranking** — evaluate your product against each one on its own. You "are" a class when you pass its rules; there is no ordering in which passing a stricter-sounding class implies the others (a Sovereign product can still retain data forever; an Ephemeral product has nothing to export, so it can't satisfy Trusted Custody). Identify every class your product currently satisfies, and note the ones you don't.
 
-It's common to find you're between classes, or that different features of your product belong to different classes. That's fine — note it. A product can have Ephemeral processing with Trusted Custody storage.
+It's common — and fine — to find that different features of your product belong to different classes. A product can have Ephemeral processing with Trusted Custody storage. Record which class applies to which part, rather than forcing the whole product into one label.
 
 ### Step 5: Choose a Target
 
@@ -84,7 +84,7 @@ See the [roadmap guide](roadmap-to-a-class.md) for how to plan your path from cu
 You can use an AI coding assistant to accelerate this process. For example, with Claude Code:
 
 ```
-Look at the PrivacyLibrary classification system at https://github.com/anthropics/privacylibrary
+Look at the PrivacyLibrary classification system at https://github.com/timothywadecook/privacylibrary
 and review our codebase. Determine which privacy class best describes our current implementation.
 Then review the rules for [target class] and draft a roadmap to achieve that classification.
 ```

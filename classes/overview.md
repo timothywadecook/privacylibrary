@@ -15,14 +15,14 @@ The classification system has four layers:
 
 Privacy posture has more than one dimension. This system separates them:
 
-- **Base classes** answer: *how does a product treat its **user's own** data?* Every product picks exactly one.
+- **Base classes** answer: *how does a product treat its **user's own** data?* A product declares the base class it intends to claim; different features of one product can sit in different classes (e.g. Ephemeral processing with Trusted Custody storage).
 - **Cross-cutting classes** answer: *how does a product treat **other people** it affects — those who are not its users?* A product adopts one only if it applies to what the product does.
 
 Keeping these on separate axes matters: a product can be excellent on its user's data and still harm people it captures. Both must be stated to describe the full posture.
 
 ## The Four Base Classes
 
-Base classes form a spectrum based on how much trust is delegated to external parties:
+The four base classes differ in how much trust is delegated to external parties. They are **independent postures, not a nested hierarchy** — the table below is ordered by trust delegation for readability, but meeting one class does *not* imply meeting another. (Sovereign, for instance, has no data-retention rules, so a Sovereign product can retain data indefinitely; an Ephemeral product retains nothing and so cannot satisfy Trusted Custody's export rule.) You evaluate a product against each class on its own.
 
 | Class | Trust Model | Data Leaves Your Control? |
 |---|---|---|

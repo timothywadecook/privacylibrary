@@ -8,16 +8,14 @@ You should have already [classified your product](classify-your-product.md) — 
 
 ## How Classes Relate
 
-The four classes form a spectrum of trust delegation:
+The four classes differ in how much trust is delegated to external parties — but they are **independent postures, not a ladder you climb**. Meeting one does not imply meeting another, and there is no fixed order to move through.
 
 ```
-Sovereign → Ephemeral → Trusted Custody → Accountable Use
-(no trust)   (momentary)   (custodial)      (transparent)
+Sovereign        Ephemeral        Trusted Custody      Accountable Use
+(no trust)       (momentary)      (custodial)          (transparent)
 ```
 
-Moving left means reducing trust delegation — fewer external parties touch your data. Moving right means allowing broader use with stronger transparency guarantees.
-
-Neither direction is inherently "better." The right target depends on your product, your users, and your context.
+Because the classes aren't nested, a "migration" is not a step along a line — it's closing the gap between your product's current behavior and the specific rules of the class you've chosen to target. Those rules may pull in more than one direction (e.g. adding Accountable Use's audit trail while keeping Ephemeral processing). No class is inherently "better"; the right target depends on your product, your users, and your context.
 
 ## Planning Your Migration
 
