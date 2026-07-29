@@ -42,7 +42,7 @@ Capture the least that does the job, and discard raw buffers the moment the func
 
 ### 3. Signal capture to bystanders — and know your hardware — [BR-1]
 
-Bystanders deserve to know when they're being recorded — and [BR-1](../classes/bystander-respecting/#normative-rules) demands an indicator that *cannot be disabled in software*. That bar is higher than "has a light," and real hardware shows why:
+Bystanders deserve to know when they're being recorded — and [BR-1](../classes/bystander-respecting/README.md#normative-rules) demands an indicator that *cannot be disabled in software*. That bar is higher than "has a light," and real hardware shows why:
 
 - **Mentra Live** ships a white capture "privacy light," and the stock client's policy is to light it on every photo/video/stream — a genuinely good default. But reading the open-source client shows the LED is [software-driven and fails open to a no-op](../platforms/mentraos/mentra-live.md#the-capture-indicator-is-software-driven--br-1-is-a-fail): it can be turned off in code, and a modified build can capture with it dark. That's a concrete **BR-1 Fail** — a good default is not a guarantee.
 - **OpenXR defines no capture indicator at all** — [it's left entirely to the runtime/OS/hardware](../platforms/openxr/README.md#what-openxr-does-not-provide). Check what your target runtime actually shows.
