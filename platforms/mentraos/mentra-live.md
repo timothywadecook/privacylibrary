@@ -32,13 +32,13 @@
 
 ### Ambient capture surface
 
-Mentra Live has a **12MP forward-facing camera with a 119° field of view** and **three microphones** [S1][S2]. Both capture the **wearer's surroundings**, meaning **any person in front of or near the wearer is a potential [bystander](../../classes/bystander-respecting/#who-is-a-bystander)** whose image or voice can be captured. This is the defining reason the Bystander-Respecting class applies to Mentra Live apps that use the camera or microphone.
+Mentra Live has a **12MP forward-facing camera with a 119° field of view** and **three microphones** [S1][S2]. Both capture the **wearer's surroundings**, meaning **any person in front of or near the wearer is a potential [bystander](../../classes/bystander-respecting/README.md#who-is-a-bystander)** whose image or voice can be captured. This is the defining reason the Bystander-Respecting class applies to Mentra Live apps that use the camera or microphone.
 
 ### The capture indicator is software-driven — BR-1 is a Fail
 
 Mentra Live signals camera use with two indicators: a **local MTK "privacy light"** and a **white RGB ring**, driven together by `MediaCaptureService` so the wearer/bystander gets a consistent signal (photo → white flash; video → solid; buffer recording → blink) [S7]. To Mentra's credit, **the stock client policy is to always light the local capture LED for photo, video, and stream capture** [S7]. That is a genuinely good *default*.
 
-**But rule [BR-1](../../classes/bystander-respecting/#normative-rules) requires an indicator that *cannot be disabled or concealed in software* — and this one can.** Reading the MIT-licensed `asg_client` source that this profile already cites resolves the question that an earlier version of this profile left open:
+**But rule [BR-1](../../classes/bystander-respecting/README.md#normative-rules) requires an indicator that *cannot be disabled or concealed in software* — and this one can.** Reading the MIT-licensed `asg_client` source that this profile already cites resolves the question that an earlier version of this profile left open:
 
 - The LED is controlled entirely in software: `K900LedController.turnOff()`, `setBrightness(int percent)` (0 = off), and `setLedStateInternal()` → `DevApi.setLedOn(boolean)` over JNI to `libxydev.so` [S7].
 - "Always enabled for capture" is an **application policy in `MediaCaptureService`, not a hardware interlock** [S7].
