@@ -20,10 +20,14 @@ jobs:
         with:
           fetch-depth: 0
       - name: Verify Signed-off-by on every commit
+        env:
+          # Exactly the PR's own commits (base..head), so the synthetic merge
+          # commit GitHub creates for pull_request events isn't counted.
+          RANGE: ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}
         run: |
-          base="origin/${{ github.base_ref }}"
           missing=0
-          for sha in $(git rev-list "$base..HEAD"); do
+          # --no-merges: merge commits don't carry a DCO sign-off and don't need one.
+          for sha in $(git rev-list --no-merges "$RANGE"); do
             who="$(git show -s --format='%h %an <%ae>' "$sha")"
             if ! git show -s --format='%(trailers:key=Signed-off-by)' "$sha" | grep -qi "Signed-off-by:"; then
               echo "::error::Missing Signed-off-by (DCO): $who"
