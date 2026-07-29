@@ -14,14 +14,14 @@ This is the posture for sensitive processing where the act of retention itself i
 
 Each rule is verifiable: a product either meets it or it doesn't.
 
-| # | Rule | Status |
-|---|---|---|
-| E-1 | No user content persists in any storage after the interaction completes | Proposed |
-| E-2 | No user content is used for model training or fine-tuning | Proposed |
-| E-3 | Processing logs, if any, contain no user content — only operational metadata | Proposed |
-| E-4 | Caches containing user content are invalidated at the interaction boundary | Proposed |
-| E-5 | No embeddings or vector representations of user content are retained | Proposed |
-| E-6 | Session identifiers are not linkable across interactions | Proposed |
+| # | Rule | Status | Verification |
+|---|---|---|---|
+| E-1 | No user content persists in any storage after the interaction completes | Proposed | — |
+| E-2 | No user content is used for model training or fine-tuning | Proposed | — |
+| E-3 | Processing logs, if any, contain no user content — only operational metadata | Proposed | — |
+| E-4 | Caches containing user content are invalidated at the interaction boundary | Proposed | — |
+| E-5 | No embeddings or vector representations of user content are retained | Proposed | — |
+| E-6 | Session identifiers are not linkable across interactions | Proposed | — |
 
 ## Gaps
 

@@ -157,6 +157,16 @@ Rule IDs (`S-1`, `BR-5`, `AU-3`, …) are the project's public interface — spe
 
 See [GOVERNANCE.md](GOVERNANCE.md#identifier-stability) for the full policy.
 
+### Machine-readable export (`rules.json`)
+
+`rules.json` is a generated, machine-readable export of every class and rule (for tools and agents). **It is generated from the Markdown rule tables — do not edit it by hand.** When you change a rule table, regenerate it:
+
+```
+node scripts/generate-rules.mjs
+```
+
+CI verifies it is in sync ([`.github/workflows/rules-json.yml`](.github/workflows/rules-json.yml)) and will fail a PR whose `rules.json` has drifted. Each rule table also has a **Verification** column; it is currently empty (`—`) for every rule — populating it is [normative work](GOVERNANCE.md#rule-lifecycle), and the export carries `"verification": null` until then.
+
 ## Licensing & Provenance
 
 - **Dual license.** Normative text and documentation are contributed under **[CC BY 4.0](LICENSE-CONTENT)**; code and data files under **[MIT](LICENSE)**. By contributing, you agree to license your contribution accordingly.

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/timothywadecook/privacylibrary/rules.schema.json",
+  "title": "PrivacyLibrary rules export",
+  "description": "Machine-readable export of the PrivacyLibrary classification system. Generated from the Markdown rule tables by scripts/generate-rules.mjs — do not edit by hand. This file is a consumed interface: adding a field is additive; renaming/removing a field or a rule id is breaking.",
+  "type": "object",
+  "required": ["standard_version", "classes", "rules"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "standard_version": {
+      "type": "string",
+      "description": "Version of the standard this export was built from (see GOVERNANCE.md).",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "generated_at": {
+      "type": ["string", "null"],
+      "description": "Date the rule content last changed (YYYY-MM-DD). Advances only when rules change, not on every regeneration.",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "generator": { "type": "string" },
+    "classes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "kind", "rules"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "name": { "type": "string" },
+          "kind": {
+            "type": "string",
+            "enum": ["base", "cross-cutting"],
+            "description": "base = how a product treats its user's own data; cross-cutting = how it treats non-users it affects."
+          },
+          "description": { "type": ["string", "null"] },
+          "rules": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^[A-Z]{1,3}-\\d+$" }
+          }
+        }
+      }
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "class", "text", "status", "version_introduced", "verification"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Z]{1,3}-\\d+$",
+            "description": "Permanent, never reused (see GOVERNANCE.md#identifier-stability)."
+          },
+          "class": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "text": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["Proposed", "Accepted", "Deprecated"]
+          },
+          "version_introduced": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+          "verification": {
+            "type": ["string", "null"],
+            "description": "How compliance is verified. null = not yet specified (populating these is normative work routed through governance)."
+          }
+        }
+      }
+    }
+  }
+}

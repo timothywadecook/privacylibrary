@@ -21,16 +21,16 @@ Any identifiable person captured by the product's sensors who is not the user op
 
 Each rule is verifiable: a product either meets it or it doesn't.
 
-| # | Rule | Status |
-|---|---|---|
-| BR-1 | Active capture of the surrounding environment (camera or microphone) is signaled to bystanders by a clear, perceptible indicator that cannot be disabled or concealed in software | Proposed |
-| BR-2 | Environmental capture is off by default and requires a deliberate, per-session user action to begin — not a persistent always-on default | Proposed |
-| BR-3 | Only the minimum capture needed for the invoked function is retained; continuous raw audio/video buffers are discarded once the function completes | Proposed |
-| BR-4 | Bystanders are not identified — no facial recognition, speaker identification, gait, or other biometric matching against any enrolled or external database | Proposed |
-| BR-5 | Where any capture is persisted or transmitted off-device, bystander faces and identifying speech are redacted (blurred / muted) on-device before it leaves the device | Proposed |
-| BR-6 | Data captured about bystanders is never used for model training, profiling, advertising, or any secondary purpose | Proposed |
-| BR-7 | A documented, low-friction channel exists for a bystander to request deletion of captures containing them, and such requests are honored | Proposed |
-| BR-8 | Capture is suspended automatically in contexts with a heightened expectation of privacy where the device can detect them (e.g., a paired "do not record" beacon or geofence) | Proposed |
+| # | Rule | Status | Verification |
+|---|---|---|---|
+| BR-1 | Active capture of the surrounding environment (camera or microphone) is signaled to bystanders by a clear, perceptible indicator that cannot be disabled or concealed in software | Proposed | — |
+| BR-2 | Environmental capture is off by default and requires a deliberate, per-session user action to begin — not a persistent always-on default | Proposed | — |
+| BR-3 | Only the minimum capture needed for the invoked function is retained; continuous raw audio/video buffers are discarded once the function completes | Proposed | — |
+| BR-4 | Bystanders are not identified — no facial recognition, speaker identification, gait, or other biometric matching against any enrolled or external database | Proposed | — |
+| BR-5 | Where any capture is persisted or transmitted off-device, bystander faces and identifying speech are redacted (blurred / muted) on-device before it leaves the device | Proposed | — |
+| BR-6 | Data captured about bystanders is never used for model training, profiling, advertising, or any secondary purpose | Proposed | — |
+| BR-7 | A documented, low-friction channel exists for a bystander to request deletion of captures containing them, and such requests are honored | Proposed | — |
+| BR-8 | Capture is suspended automatically in contexts with a heightened expectation of privacy where the device can detect them (e.g., a paired "do not record" beacon or geofence) | Proposed | — |
 
 ## Gaps
 

@@ -1,0 +1,28 @@
+name: rules.json
+
+# rules.json is generated from the Markdown rule tables (source of truth) by
+# scripts/generate-rules.mjs. This job guards against drift: it runs the parser
+# tests, then regenerates in memory and fails if the committed rules.json is
+# stale. If this fails, run `node scripts/generate-rules.mjs` and commit.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  rules-json:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Parser tests
+        run: node --test "scripts/**/*.test.mjs"
+      - name: Check rules.json is in sync
+        run: node scripts/generate-rules.mjs --check

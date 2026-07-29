@@ -14,15 +14,15 @@ This is the posture for products where persistence is a feature but exploitation
 
 Each rule is verifiable: a product either meets it or it doesn't.
 
-| # | Rule | Status |
-|---|---|---|
-| TC-1 | All stored data has an explicit, declared purpose visible to the user | Proposed |
-| TC-2 | Data has a defined retention period and is automatically deleted upon expiry | Proposed |
-| TC-3 | Users can export all their data in a standard, portable format | Proposed |
-| TC-4 | Users can delete all their data, and deletion is verified complete | Proposed |
-| TC-5 | No secondary use of data beyond declared purpose without explicit re-consent | Proposed |
-| TC-6 | Data is not used for model training unless the user explicitly opts in per dataset | Proposed |
-| TC-7 | Access to user data by staff requires audit-logged justification | Proposed |
+| # | Rule | Status | Verification |
+|---|---|---|---|
+| TC-1 | All stored data has an explicit, declared purpose visible to the user | Proposed | — |
+| TC-2 | Data has a defined retention period and is automatically deleted upon expiry | Proposed | — |
+| TC-3 | Users can export all their data in a standard, portable format | Proposed | — |
+| TC-4 | Users can delete all their data, and deletion is verified complete | Proposed | — |
+| TC-5 | No secondary use of data beyond declared purpose without explicit re-consent | Proposed | — |
+| TC-6 | Data is not used for model training unless the user explicitly opts in per dataset | Proposed | — |
+| TC-7 | Access to user data by staff requires audit-logged justification | Proposed | — |
 
 ## Gaps
 

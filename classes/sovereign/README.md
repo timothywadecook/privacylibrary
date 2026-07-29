@@ -14,15 +14,15 @@ This is the posture for personal AI, sensitive professional tools, and any conte
 
 Each rule is verifiable: a product either meets it or it doesn't.
 
-| # | Rule | Status |
-|---|---|---|
-| S-1 | All AI inference runs on infrastructure owned or controlled by the deployer | Proposed |
-| S-2 | No network requests are made to external AI APIs for inference or processing | Proposed |
-| S-3 | All software dependencies are open-source with inspectable source code | Proposed |
-| S-4 | No telemetry, analytics, or crash reporting is sent to third-party services | Proposed |
-| S-5 | Network access to the application is restricted to explicitly authorized users via secure channels | Proposed |
-| S-6 | Data at rest is encrypted on the deployment infrastructure | Proposed |
-| S-7 | The full application stack can be reproduced from source by the deployer | Proposed |
+| # | Rule | Status | Verification |
+|---|---|---|---|
+| S-1 | All AI inference runs on infrastructure owned or controlled by the deployer | Proposed | — |
+| S-2 | No network requests are made to external AI APIs for inference or processing | Proposed | — |
+| S-3 | All software dependencies are open-source with inspectable source code | Proposed | — |
+| S-4 | No telemetry, analytics, or crash reporting is sent to third-party services | Proposed | — |
+| S-5 | Network access to the application is restricted to explicitly authorized users via secure channels | Proposed | — |
+| S-6 | Data at rest is encrypted on the deployment infrastructure | Proposed | — |
+| S-7 | The full application stack can be reproduced from source by the deployer | Proposed | — |
 
 ## Gaps
 

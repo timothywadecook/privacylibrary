@@ -1,0 +1,356 @@
+{
+  "$schema": "./rules.schema.json",
+  "standard_version": "0.1.0",
+  "generated_at": "2026-07-29",
+  "generator": "scripts/generate-rules.mjs — generated from the Markdown rule tables; do not edit by hand.",
+  "classes": [
+    {
+      "id": "sovereign",
+      "name": "Sovereign",
+      "kind": "base",
+      "description": "No trust delegation. You own the infrastructure, the models, and the data. No external party can access, process, or observe.",
+      "rules": [
+        "S-1",
+        "S-2",
+        "S-3",
+        "S-4",
+        "S-5",
+        "S-6",
+        "S-7"
+      ]
+    },
+    {
+      "id": "ephemeral",
+      "name": "Ephemeral",
+      "kind": "base",
+      "description": "Process and forget. Nothing persists beyond the interaction.",
+      "rules": [
+        "E-1",
+        "E-2",
+        "E-3",
+        "E-4",
+        "E-5",
+        "E-6"
+      ]
+    },
+    {
+      "id": "trusted-custody",
+      "name": "Trusted Custody",
+      "kind": "base",
+      "description": "Data is held in trust. User-owned, purpose-bound, auto-expiring.",
+      "rules": [
+        "TC-1",
+        "TC-2",
+        "TC-3",
+        "TC-4",
+        "TC-5",
+        "TC-6",
+        "TC-7"
+      ]
+    },
+    {
+      "id": "accountable-use",
+      "name": "Accountable Use",
+      "kind": "base",
+      "description": "Broader use permitted, but every use is visible, auditable, and consented.",
+      "rules": [
+        "AU-1",
+        "AU-2",
+        "AU-3",
+        "AU-4",
+        "AU-5",
+        "AU-6"
+      ]
+    },
+    {
+      "id": "bystander-respecting",
+      "name": "Bystander-Respecting",
+      "kind": "cross-cutting",
+      "description": "The people you capture are not your users. Ambient sensing respects those who never opted in.",
+      "rules": [
+        "BR-1",
+        "BR-2",
+        "BR-3",
+        "BR-4",
+        "BR-5",
+        "BR-6",
+        "BR-7",
+        "BR-8"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "S-1",
+      "class": "sovereign",
+      "text": "All AI inference runs on infrastructure owned or controlled by the deployer",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "S-2",
+      "class": "sovereign",
+      "text": "No network requests are made to external AI APIs for inference or processing",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "S-3",
+      "class": "sovereign",
+      "text": "All software dependencies are open-source with inspectable source code",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "S-4",
+      "class": "sovereign",
+      "text": "No telemetry, analytics, or crash reporting is sent to third-party services",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "S-5",
+      "class": "sovereign",
+      "text": "Network access to the application is restricted to explicitly authorized users via secure channels",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "S-6",
+      "class": "sovereign",
+      "text": "Data at rest is encrypted on the deployment infrastructure",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "S-7",
+      "class": "sovereign",
+      "text": "The full application stack can be reproduced from source by the deployer",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "E-1",
+      "class": "ephemeral",
+      "text": "No user content persists in any storage after the interaction completes",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "E-2",
+      "class": "ephemeral",
+      "text": "No user content is used for model training or fine-tuning",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "E-3",
+      "class": "ephemeral",
+      "text": "Processing logs, if any, contain no user content — only operational metadata",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "E-4",
+      "class": "ephemeral",
+      "text": "Caches containing user content are invalidated at the interaction boundary",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "E-5",
+      "class": "ephemeral",
+      "text": "No embeddings or vector representations of user content are retained",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "E-6",
+      "class": "ephemeral",
+      "text": "Session identifiers are not linkable across interactions",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "TC-1",
+      "class": "trusted-custody",
+      "text": "All stored data has an explicit, declared purpose visible to the user",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "TC-2",
+      "class": "trusted-custody",
+      "text": "Data has a defined retention period and is automatically deleted upon expiry",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "TC-3",
+      "class": "trusted-custody",
+      "text": "Users can export all their data in a standard, portable format",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "TC-4",
+      "class": "trusted-custody",
+      "text": "Users can delete all their data, and deletion is verified complete",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "TC-5",
+      "class": "trusted-custody",
+      "text": "No secondary use of data beyond declared purpose without explicit re-consent",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "TC-6",
+      "class": "trusted-custody",
+      "text": "Data is not used for model training unless the user explicitly opts in per dataset",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "TC-7",
+      "class": "trusted-custody",
+      "text": "Access to user data by staff requires audit-logged justification",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "AU-1",
+      "class": "accountable-use",
+      "text": "Every processing activity is logged in a user-accessible audit trail",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "AU-2",
+      "class": "accountable-use",
+      "text": "Users grant consent per processing purpose, not as a blanket agreement",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "AU-3",
+      "class": "accountable-use",
+      "text": "Users can revoke consent for any specific processing purpose at any time",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "AU-4",
+      "class": "accountable-use",
+      "text": "AI training use of user data is explicitly disclosed and separately consented",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "AU-5",
+      "class": "accountable-use",
+      "text": "Third-party data sharing is individually disclosed with recipient and purpose",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "AU-6",
+      "class": "accountable-use",
+      "text": "Users can view a real-time summary of how their data is currently being used",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "BR-1",
+      "class": "bystander-respecting",
+      "text": "Active capture of the surrounding environment (camera or microphone) is signaled to bystanders by a clear, perceptible indicator that cannot be disabled or concealed in software",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "BR-2",
+      "class": "bystander-respecting",
+      "text": "Environmental capture is off by default and requires a deliberate, per-session user action to begin — not a persistent always-on default",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "BR-3",
+      "class": "bystander-respecting",
+      "text": "Only the minimum capture needed for the invoked function is retained; continuous raw audio/video buffers are discarded once the function completes",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "BR-4",
+      "class": "bystander-respecting",
+      "text": "Bystanders are not identified — no facial recognition, speaker identification, gait, or other biometric matching against any enrolled or external database",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "BR-5",
+      "class": "bystander-respecting",
+      "text": "Where any capture is persisted or transmitted off-device, bystander faces and identifying speech are redacted (blurred / muted) on-device before it leaves the device",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "BR-6",
+      "class": "bystander-respecting",
+      "text": "Data captured about bystanders is never used for model training, profiling, advertising, or any secondary purpose",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "BR-7",
+      "class": "bystander-respecting",
+      "text": "A documented, low-friction channel exists for a bystander to request deletion of captures containing them, and such requests are honored",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    },
+    {
+      "id": "BR-8",
+      "class": "bystander-respecting",
+      "text": "Capture is suspended automatically in contexts with a heightened expectation of privacy where the device can detect them (e.g., a paired \"do not record\" beacon or geofence)",
+      "status": "Proposed",
+      "version_introduced": "0.1.0",
+      "verification": null
+    }
+  ]
+}
