@@ -11,10 +11,10 @@ This guide helps you map your product against our [four privacy classes](../clas
 ## The Quick Version
 
 1. Read the [class overview](../classes/overview.md) to understand the four postures
-2. For each class, go through its rules and ask: does my product meet this?
-3. The class where you meet the most rules (or fail the fewest) is roughly where you are
-4. The class you *want* to meet is your target
-5. The gap between current and target is your privacy roadmap
+2. For each class, independently, go through its rules and ask: does my product meet this?
+3. You currently satisfy every class whose rules you fully pass — the classes aren't ranked, so evaluate each on its own (and different features may land in different classes)
+4. The class you *want* to claim is your target
+5. The gap between where you are and that target is your privacy roadmap
 
 ## Step-by-Step
 
