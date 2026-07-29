@@ -1,0 +1,38 @@
+name: DCO
+
+# Enforces the Developer Certificate of Origin: every commit in a PR must
+# carry a `Signed-off-by:` trailer (add with `git commit -s`, or retro-sign a
+# branch with `git rebase --signoff main`). An unenforced sign-off requirement
+# implies provenance the project doesn't actually have — so this check makes it
+# real. See CONTRIBUTING.md#licensing--provenance.
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  dco:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify Signed-off-by on every commit
+        run: |
+          base="origin/${{ github.base_ref }}"
+          missing=0
+          for sha in $(git rev-list "$base..HEAD"); do
+            who="$(git show -s --format='%h %an <%ae>' "$sha")"
+            if ! git show -s --format='%(trailers:key=Signed-off-by)' "$sha" | grep -qi "Signed-off-by:"; then
+              echo "::error::Missing Signed-off-by (DCO): $who"
+              missing=1
+            fi
+          done
+          if [ "$missing" -ne 0 ]; then
+            echo "Sign off your commits: 'git commit -s', or retro-sign with 'git rebase --signoff $base'."
+            echo "See CONTRIBUTING.md (Licensing & Provenance)."
+            exit 1
+          fi
+          echo "All commits carry Signed-off-by. ✔"

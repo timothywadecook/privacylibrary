@@ -24,7 +24,8 @@ Every normative rule carries a **status**. This is the core of the project's gov
 1. **Propose.** Open a rule-proposal issue (see [CONTRIBUTING](CONTRIBUTING.md#propose-a-rule)) or a PR adding the rule with status `Proposed`.
 2. **Comment window.** The proposal stays open for **at least 14 days** to allow review. Substantive objections must be addressed or explicitly overruled with a reason — not ignored.
 3. **Rough consensus.** A rule advances when there is rough consensus and no unresolved blocking objection. "Rough consensus" means the serious concerns have been heard and addressed, not that everyone agrees. The maintainer judges whether the bar is met and records the decision on the issue/PR.
-4. **Accept.** The maintainer merges the status change to `Accepted`, which lands in a versioned release (see below) and the [CHANGELOG](CHANGELOG.md).
+4. **Lazy consensus.** If the comment window closes with no objections, the proposal advances by **lazy consensus — silence is assent.** This matters while the community is small: a proposal that no one contests must still be able to reach a decision rather than stalling indefinitely for want of explicit approval.
+5. **Accept.** The maintainer merges the status change to `Accepted`, which lands in a versioned release (see below) and the [CHANGELOG](CHANGELOG.md).
 
 ### Anyone can block, the maintainer breaks ties
 
@@ -63,7 +64,7 @@ What belongs in the project (new classes, new platform profiles, new guide topic
 
 ## Licensing of Contributions
 
-By contributing, you agree your contribution is licensed under the project's licenses — **CC BY-SA 4.0** for normative text and documentation, **MIT** for code and data files — and you certify the [Developer Certificate of Origin](CONTRIBUTING.md#licensing--provenance) by signing off your commits. See [CONTRIBUTING](CONTRIBUTING.md#licensing--provenance).
+By contributing, you agree your contribution is licensed under the project's licenses — **CC BY 4.0** for normative text and documentation, **MIT** for code and data files — and you certify the [Developer Certificate of Origin](CONTRIBUTING.md#licensing--provenance) by signing off your commits. See [CONTRIBUTING](CONTRIBUTING.md#licensing--provenance).
 
 ## Evolving This Document
 

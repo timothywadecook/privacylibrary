@@ -159,7 +159,7 @@ See [GOVERNANCE.md](GOVERNANCE.md#identifier-stability) for the full policy.
 
 ## Licensing & Provenance
 
-- **Dual license.** Normative text and documentation are contributed under **[CC BY-SA 4.0](LICENSE-CONTENT)**; code and data files under **[MIT](LICENSE)**. By contributing, you agree to license your contribution accordingly.
+- **Dual license.** Normative text and documentation are contributed under **[CC BY 4.0](LICENSE-CONTENT)**; code and data files under **[MIT](LICENSE)**. By contributing, you agree to license your contribution accordingly.
 - **Sign your work (DCO).** This project uses the [Developer Certificate of Origin](https://developercertificate.org/). Certify that you wrote the contribution (or have the right to submit it under our licenses) by signing off each commit:
 
   ```

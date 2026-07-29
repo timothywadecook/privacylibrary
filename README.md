@@ -86,5 +86,5 @@ How rules move from Proposed to Accepted, how the standard is versioned, and how
 
 Dual-licensed by content type:
 
-- **Normative text & documentation** (the class definitions, rules, specs, patterns, guides, profiles) — [CC BY-SA 4.0](LICENSE-CONTENT). Reuse and adapt freely with attribution and share-alike; this keeps the standard and its derivatives open.
+- **Normative text & documentation** (the class definitions, rules, specs, patterns, guides, profiles) — [CC BY 4.0](LICENSE-CONTENT). Reuse and adapt freely with attribution; organizations can embed these rules into their own policies and products without copyleft obligations (the license standards like SLSA and OpenChain use).
 - **Code & data** (JSON exports, GitHub Actions, scripts) — [MIT](LICENSE).

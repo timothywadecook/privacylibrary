@@ -5,9 +5,16 @@ name: Profile staleness
 # profile passes its date, it opens/updates a tracking issue so the decay is
 # visible instead of silent. Runs daily, and can be triggered manually.
 
+# Also triggers on push/PR, not only on schedule: GitHub auto-disables
+# scheduled workflows after 60 days of repository inactivity — precisely the
+# dormancy in which a profile would rot unnoticed. Activity re-checks the
+# dates and keeps the mechanism alive.
 on:
   schedule:
     - cron: "17 6 * * *"
+  push:
+    branches: [main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
