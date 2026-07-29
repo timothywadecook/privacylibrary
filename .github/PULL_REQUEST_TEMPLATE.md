@@ -23,6 +23,6 @@
 - [ ] Commits are signed off (`git commit -s`) per the [DCO](../CONTRIBUTING.md#licensing--provenance)
 
 <!--
-By opening this PR you agree your contribution is licensed under CC BY-SA 4.0
+By opening this PR you agree your contribution is licensed under CC BY 4.0
 (normative text/docs) and MIT (code/data), and you certify the DCO.
 -->
