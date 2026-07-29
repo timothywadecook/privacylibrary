@@ -43,6 +43,20 @@ Cross-cutting classes compose *on top of* a base class to cover people beyond th
 
 This is the axis that ambient AI, wearables, and smart glasses force into the open. Example: a self-hosted camera-glasses app can be **Sovereign** (the wearer owns the stack) *and* **Bystander-Respecting** (people around the wearer are signaled, minimized, and redacted).
 
+## How the Classes Relate
+
+*This is the canonical statement of the model's semantics. Specs, guides, and tools should treat it as the reference for how classes compose and how a product is classified. Decided at v0.1.*
+
+**1. Two independent axes.** Every classification has (at most) two parts: a **base class** describing how the product treats its user's own data, and, if the product senses beyond its user, a **cross-cutting class** describing how it treats non-users it affects. The axes are independent — a claim on one says nothing about the other.
+
+**2. Base classes are mutually independent, not a hierarchy.** The four base classes are distinct postures, not levels of a ladder. Satisfying one class neither requires nor implies satisfying another; there is **no subsumption and no ranking**. The trust-delegation order used in tables is a reading aid, not a relation between the classes. Some pairs are even effectively exclusive: an Ephemeral product retains nothing and therefore cannot meet Trusted Custody's export and retention rules. The only correct way to determine a product's classes is to evaluate it against each class's rules **independently**.
+
+**3. Classification is a claim you make and can verify.** A product (or a single feature) *is in* a class when it satisfies that class's rules — no more, no less. A product **declares** the class(es) it claims; different features may claim different classes (e.g. Ephemeral chat, Trusted Custody document storage). A [spec](../CONTRIBUTING.md#write-a-spec) is how a claim is evidenced, rule by rule, with Pass/Fail/Partial/Unknown.
+
+**4. Composition across axes is conjunction.** A product's full posture is its base-class claim(s) **and** every cross-cutting class that applies to it, together. "Sovereign + Bystander-Respecting" means both sets of rules are met; neither weakens nor implies the other.
+
+**5. Scope of a claim.** Claims attach to a stated scope — a whole product, or a named feature. A product-level claim means *every* feature meets it; a feature-level claim is bounded to that feature and should say so. When features differ, record the classification per feature rather than forcing one label onto the whole product.
+
 ## Status
 
 This classification system is in its early stages. The classes below are proposed starting points, not finished standards. Many rules are missing. Some may be wrong. That's intentional — this is meant to be built together.
