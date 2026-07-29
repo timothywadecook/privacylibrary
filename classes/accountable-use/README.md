@@ -14,14 +14,14 @@ This is the floor that all SaaS should meet, and the posture for products where 
 
 Each rule is verifiable: a product either meets it or it doesn't.
 
-| # | Rule | Status |
-|---|---|---|
-| AU-1 | Every processing activity is logged in a user-accessible audit trail | Proposed |
-| AU-2 | Users grant consent per processing purpose, not as a blanket agreement | Proposed |
-| AU-3 | Users can revoke consent for any specific processing purpose at any time | Proposed |
-| AU-4 | AI training use of user data is explicitly disclosed and separately consented | Proposed |
-| AU-5 | Third-party data sharing is individually disclosed with recipient and purpose | Proposed |
-| AU-6 | Users can view a real-time summary of how their data is currently being used | Proposed |
+| # | Rule | Status | Verification |
+|---|---|---|---|
+| AU-1 | Every processing activity is logged in a user-accessible audit trail | Proposed | — |
+| AU-2 | Users grant consent per processing purpose, not as a blanket agreement | Proposed | — |
+| AU-3 | Users can revoke consent for any specific processing purpose at any time | Proposed | — |
+| AU-4 | AI training use of user data is explicitly disclosed and separately consented | Proposed | — |
+| AU-5 | Third-party data sharing is individually disclosed with recipient and purpose | Proposed | — |
+| AU-6 | Users can view a real-time summary of how their data is currently being used | Proposed | — |
 
 ## Gaps
 
