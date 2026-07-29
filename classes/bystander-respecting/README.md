@@ -64,4 +64,5 @@ A product declares **both** a base class and, if it senses beyond its user, this
 ## See Also
 
 - [Classification overview](../overview.md) — how cross-cutting classes fit the two-axis model
-- Smart-glasses and wearable specs/patterns (planned) — verifications and edge-inference blueprints for real devices
+- [Spec: Mentra Live Scene Describer](specs/mentra-live-scene-describer.md) — a real smart-glasses app verified against Ephemeral + Bystander-Respecting
+- [Platform profile: MentraOS](../../platforms/mentraos/README.md) and [device profile: Mentra Live](../../platforms/mentraos/mentra-live.md) — the grounded facts these rules are tested against
